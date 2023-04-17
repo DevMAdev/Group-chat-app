@@ -1,38 +1,141 @@
-.App {
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body{
   min-height: 100vh;
+  background: linear-gradient(#87f4b5,#93cbf1);
+  color: #353b48;
+}
+
+
+.login-cont{
+  width: 100%;
+  padding: 50px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+}
+
+[alt="logo"]{
+  animation: move 2s linear infinite alternate both;
+}
+
+.login-modal{
+  width:600px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  border-radius: 10px;
+}
+
+h1{
+  width: 600px;
+  text-align: center;
+  font-size: 4rem;
+  margin: 20px;
+  
+}
+
+.detail-form{
+width: fit-content;
+padding: 30px 50px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+gap: 10px;
+font-size: 1.2rem;
+font-weight: 600;
+}
+
+input{
+  padding: 5px 10px;
+  border-radius: 10px;
+  width: 500px;
+  border: none;
+  font-size: 1.2rem;
+}
+
+.google-login{
+width: 600px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+font-size: 1.2rem;
+gap: 10px;
+}
+
+.user{
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* chat-css */
+
+.header{
+position: sticky;
+top: 0;
 }
 
-@keyframes App-logo-spin {
+.chat-container{
+font-size: 1rem;
+padding: 30px;
+min-height: 90vh;
+background-color: #A83279;
+}
+
+.chat-cont {
+display: flex;
+}
+
+.chat-cont.me{
+flex-direction: row-reverse;
+}
+
+.single-chat{
+width: fit-content;
+box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+border-radius: 0 15px 0 15px ;
+margin: 5px 0;
+padding: 5px 10px;
+background-color: #ffffff;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.input-chat-cont{
+width: 100%;
+position: fixed;
+bottom: 0;
+background: white;
+display: flex;
+align-items: center;
+height: 6vh;
+overflow: auto;
+}
+
+.input-chat-cont input{
+width: 95%;
+border: none;
+background: transparent;
+outline: none;
+}
+
+.input-chat-cont button{
+border: none;
+cursor: pointer;
+outline: none;
+background: transparent;
+}
+
+@keyframes move {
   from {
-    transform: rotate(0deg);
+    margin-top: 0;
   }
   to {
-    transform: rotate(360deg);
+    margin-top: 50px;
   }
 }
