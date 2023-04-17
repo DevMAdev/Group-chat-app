@@ -7,7 +7,6 @@ import userAvtar from './assets/user.png'
 import send from './assets/send.svg'
 import { getAuth, signOut } from 'firebase/auth';
 import { getDatabase, onChildAdded, push, ref, set } from "firebase/database";
-import app from './firebase';
 
 function Chat() {
   const [userName, setUserName] = useState("")
@@ -15,12 +14,14 @@ function Chat() {
   const navigate = useNavigate()
   const inputRef = useRef()
 
+  const db = getDatabase();
+  const chatListRef = ref(db, 'chats')
   
   useEffect(() => {     
     const auth = getAuth(app);
     const user = auth.currentUser;
     setUserName(user)
-  
+    onChildAdded(chatListRef, (data) => setChats(chats => [...chats, data.val()]));
   }, [])
 
   function handleSignout() {
@@ -33,16 +34,13 @@ function Chat() {
   }
 
   const renderChat = () => {
-    
-  const db = getDatabase();
-  const chatListRef = ref(db, 'chats')
     const newChatRef = push(chatListRef)
     set(newChatRef, {
       name: userName?.displayName,
       msg: inputRef.current.value,
     })
+
     inputRef.current.value = ""
-    onChildAdded(chatListRef, (data) => setChats(chats=>[...chats, data.val()]));
   }
   console.log(chats)
 
