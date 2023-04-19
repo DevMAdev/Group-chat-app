@@ -82,8 +82,9 @@ top: 0;
 .chat-container{
 font-size: 1rem;
 padding: 30px;
-min-height: 90vh;
+height: 100%;
 background-color: #A83279;
+overflow-y: scroll
 }
 
 .chat-cont {
@@ -118,17 +119,14 @@ overflow: auto;
 }
 
 .input-chat-cont input{
-width: 95%;
+width: 90%;
 border: none;
 background: transparent;
 outline: none;
 }
 
-.input-chat-cont button{
-border: none;
-cursor: pointer;
-outline: none;
-background: transparent;
+[alt="send-img"]{
+  cursor: pointer;
 }
 
 @keyframes move {

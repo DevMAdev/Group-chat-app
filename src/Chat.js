@@ -7,12 +7,15 @@ import userAvtar from './assets/user.png'
 import send from './assets/send.svg'
 import { getAuth, signOut } from 'firebase/auth';
 import { getDatabase, onChildAdded, push, ref, set } from "firebase/database";
+import app from './firebase';
 
 function Chat() {
   const [userName, setUserName] = useState("")
   const [chats, setChats] = useState([])
   const navigate = useNavigate()
   const inputRef = useRef()
+  const chatContainerRef = useRef();
+
 
   const db = getDatabase();
   const chatListRef = ref(db, 'chats')
@@ -21,9 +24,24 @@ function Chat() {
     const auth = getAuth(app);
     const user = auth.currentUser;
     setUserName(user)
-    onChildAdded(chatListRef, (data) => setChats(chats => [...chats, data.val()]));
+   const chatAppend =  onChildAdded(chatListRef, (data) => {
+    setChats(chats => [...chats, data.val()]);
+    // setTimeout(()=>{
+    //   autoScroll()
+    // },1000)
+   })
+
+   return () => {
+    chatAppend();
+  }
   }, [])
 
+  function autoScroll() {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  };
+  
   function handleSignout() {
     const auth = getAuth(app);
     signOut(auth).then(() => {
@@ -35,15 +53,17 @@ function Chat() {
 
   const renderChat = () => {
     const newChatRef = push(chatListRef)
-    set(newChatRef, {
+    if(inputRef.current.value !== ""){
+      set(newChatRef, {
       name: userName?.displayName,
       msg: inputRef.current.value,
     })
+    }
 
     inputRef.current.value = ""
+    autoScroll()
   }
-  console.log(chats)
-
+  
   return (
     <div>
       <Navbar bg="light" variant="light" className='header'>
@@ -66,12 +86,12 @@ function Chat() {
       </Navbar>
 
       {
-        userName.displayName ? <div className="chat-container" id='chat-container' >
+        userName.displayName ? <div className="chat-container" id='chat-container' ref={chatContainerRef}>
 
           {
             chats.map((chat, index) => {
               return (
-                <div className={`chat-cont ${chat.name === userName?.displayName ? 'me' : ''}`} >
+                <div className={`chat-cont ${chat.name === userName?.displayName ? 'me' : ''}`} key={index}>
                   <div className="single-chat">
                     <p>
                       <strong>{chat.name} :</strong>
