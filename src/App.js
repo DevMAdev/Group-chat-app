@@ -9,9 +9,9 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
-          <Route path='/' element={<LoggedInUser />}/>
+          <Route exact path="/" element={<LoggedInUser />}/>
           <Route path='/signup' element={<Signup />}/>
           <Route path='/chat' element={<Chat />} />
         </Routes>
