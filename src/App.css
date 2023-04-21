@@ -13,13 +13,14 @@ body{
 
 .login-cont{
   width: 100%;
-  padding: 50px;
+  padding: 30px;
   display: flex;
   justify-content: space-between;
 }
 
 [alt="logo"]{
   animation: move 2s linear infinite alternate both;
+  overflow: hidden;
 }
 
 .login-modal{
@@ -43,7 +44,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 gap: 10px;
-font-size: 1.2rem;
+font-size: 1.1rem;
 font-weight: 600;
 }
 
@@ -73,18 +74,25 @@ gap: 10px;
 }
 
 /* chat-css */
-
-.header{
-position: sticky;
-top: 0;
+.chat-page{
+  min-height: 100vh;
+  width: 100%;
+  background-color: black;
+  position: relative;
 }
 
-.chat-container{
-font-size: 1rem;
-padding: 30px;
-height: 100%;
-background-color: #A83279;
-overflow-y: scroll
+.nav-header{
+  height: 10vh !important;
+  position: sticky !important;
+  top: 0;
+  z-index: 10;
+}
+
+#chat-container{
+  width: 100%;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 .chat-cont {
@@ -108,18 +116,18 @@ justify-content: center;
 }
 
 .input-chat-cont{
+ height: 8vh;
 width: 100%;
 position: fixed;
 bottom: 0;
 background: white;
 display: flex;
 align-items: center;
-height: 6vh;
 overflow: auto;
 }
 
 .input-chat-cont input{
-width: 90%;
+width: 95%;
 border: none;
 background: transparent;
 outline: none;

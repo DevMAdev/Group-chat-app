@@ -1,6 +1,5 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import LoggedInUser from './LoggedInUser'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Signup from './Signup';

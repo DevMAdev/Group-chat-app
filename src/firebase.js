@@ -1,13 +1,18 @@
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBH7da8cWaeEKXsTCJzGo9aCCW6m2wqqHQ",
-  authDomain: "group-chat-c251d.firebaseapp.com",
-  projectId: "group-chat-c251d",
-  storageBucket: "group-chat-c251d.appspot.com",
-  messagingSenderId: "1049410177261",
-  appId: "1:1049410177261:web:c1986cea580114a01864e4"
+  apiKey: "AIzaSyA_91U_dMP9lQg1pVdm87I-al0LCx01z-E",
+  authDomain: "group-chat-13f6d.firebaseapp.com",
+  projectId: "group-chat-13f6d",
+  storageBucket: "group-chat-13f6d.appspot.com",
+  messagingSenderId: "375008155043",
+  appId: "1:375008155043:web:ccae9b4923327cea3bb616",
+  measurementId: "G-TJCM3D0HTE"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
 export default app;

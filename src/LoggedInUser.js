@@ -5,6 +5,8 @@ import { Link, useNavigate  } from 'react-router-dom'
 import './App.css'
 import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import app from './firebase'
+import Cookies from 'universal-cookie';
+
 
 function LoggedInUser() {
 const [userSignin, setUserSignin] = useState({
@@ -13,34 +15,41 @@ const [userSignin, setUserSignin] = useState({
 })
 const [user, setUser] = useState(false)
 const navigate = useNavigate()
-
-function handleLogin(event) {
+  const cookies = new Cookies();
+  
+  function handleLogin(event) {
         event.preventDefault()
         const auth = getAuth(app)
         signInWithEmailAndPassword(auth, userSignin.email, userSignin.password)
         .then((res)=>{
-            // console.log('sign on successfully',res)
+            cookies.set("authToken", res)
             setUser(true)
             navigate('/chat')
         })
         .catch((error)=>{
-            // console.log(error)
+            const errorMessage = error.message;
+            console.log(errorMessage);
         })
     }
 
-    function handleLoginWithGoogle() {
+    function handleLoginWithGoogle(event) {
+        event.preventDefault()
         const provider = new GoogleAuthProvider();
         const auth = getAuth(app)
         signInWithPopup(auth, provider)
-            .then((result) => {
-                // console.log(result)
+        .then((result) => {
+                console.log(result)
+                cookies.set("authToken", result)
                 setUser(true)
                 navigate('/chat')
+            
             })
             .catch((error) => {
-                // console.log(error)
+                const errorMessage = error.message;
+                console.log(errorMessage);
             })
-    }
+        }
+
 
     return (
         <div className='login-cont'>
@@ -49,7 +58,7 @@ function handleLogin(event) {
                 <img src={logo} alt="logo" />
             </section>
 
-            <section >
+            <section className='modal-cont' >
                 <h1>Chattenger</h1>
                 <div className="login-modal">
                     <form className='detail-form'>
@@ -63,7 +72,7 @@ function handleLogin(event) {
 
                     <div className="google-login">
                         <p><b>OR</b></p>
-                        <Button variant="success" onClick={handleLoginWithGoogle}>Login With Google</Button>
+                        <Button variant="success" onClick={(e)=>handleLoginWithGoogle(e)}>Login With Google</Button>
                         <p>If Don't Have Account ? <Link to='/signup' style={{ textDecoration: 'none', fontWeight: 'bold' }}>SignUp</Link> Now </p>
                     </div>
 

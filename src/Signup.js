@@ -1,45 +1,44 @@
 import React, { useState } from 'react'
 import logo from './assets/chat-phone.png'
 import { Button } from 'react-bootstrap'
-import { Link,useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './App.css'
 import { createUserWithEmailAndPassword, getAuth, updateProfile } from 'firebase/auth'
 import app from './firebase'
+import Cookies from 'universal-cookie';
+
 
 function Signup() {
-const [user, setUser] = useState({
-    name : "",
-    email : "",
-    password : ""
-})
-const navigate = useNavigate()
+    const [user, setUser] = useState({
+        name: "",
+        email: "",
+        password: ""
+    })
+    const navigate = useNavigate()
+    const cookies = new Cookies();
 
     function handleSignup(event) {
         event.preventDefault()
-        console.log(user)
         const auth = getAuth(app);
         createUserWithEmailAndPassword(auth, user.email, user.password)
             .then((userCredential) => {
                 let userData = userCredential.user;
                 alert("You are Register SuccessFully")
-                
+
                 updateProfile(auth.currentUser, {
                     displayName: user.name,
                 }).then(() => {
-                    // console.log(userData)
+                    cookies.set("authToken", userData)
                 }).catch((error) => {
                     console.log(error)
                 });
-                
                 navigate('/chat')
             })
             .catch((error) => {
-                const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorMessage)
             });
-              
-        }
+    }
     return (
         <div className='login-cont'>
 
@@ -53,11 +52,11 @@ const navigate = useNavigate()
                     <form className='detail-form'>
 
                         <label htmlFor="name" > Full Name</label>
-                        <input type="text" name="username" onChange={(e)=>setUser({...user, name:e.target.value})} required={true} spellCheck='false'  />
+                        <input type="text" name="username" onChange={(e) => setUser({ ...user, name: e.target.value })} required={true} spellCheck='false' />
                         <label htmlFor="Email" >Email</label>
-                        <input type="email" name="useremail" onChange={(e)=>setUser({...user, email:e.target.value})} required={true} spellCheck='false'  />
+                        <input type="email" name="useremail" onChange={(e) => setUser({ ...user, email: e.target.value })} required={true} spellCheck='false' />
                         <label htmlFor="password">Create Password</label>
-                        <input type="password" onChange={(e)=>setUser({...user, password:e.target.value})} required={true} spellCheck='false'  />
+                        <input type="password" onChange={(e) => setUser({ ...user, password: e.target.value })} required={true} spellCheck='false' />
                         <Button variant="primary" size="lg" style={{ width: '500px', marginTop: '20px' }} type='submit' onClick={(e) => handleSignup(e)}>Register</Button>
                     </form>
 

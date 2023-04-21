@@ -65,7 +65,7 @@ function Chat() {
   }
   
   return (
-    <div>
+    <div className='chat-page'>
       <Navbar bg="light" variant="light" className='header'>
         <Container>
           <Navbar.Brand href="#home" >
