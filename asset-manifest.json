@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/Group-chat-app/static/css/main.e116e652.css",
-    "main.js": "/Group-chat-app/static/js/main.b2e9c919.js",
+    "main.js": "/Group-chat-app/static/js/main.02760625.js",
     "static/media/chat-phone.png": "/Group-chat-app/static/media/chat-phone.8a5c2e3b4b071fe907f6.png",
     "static/media/user.png": "/Group-chat-app/static/media/user.81e16be9d93b8af31f60.png",
     "index.html": "/Group-chat-app/index.html",
     "static/media/send.svg": "/Group-chat-app/static/media/send.fb0c7aadf645413ea9a99d407b6f4800.svg",
     "main.e116e652.css.map": "/Group-chat-app/static/css/main.e116e652.css.map",
-    "main.b2e9c919.js.map": "/Group-chat-app/static/js/main.b2e9c919.js.map"
+    "main.02760625.js.map": "/Group-chat-app/static/js/main.02760625.js.map"
   },
   "entrypoints": [
     "static/css/main.e116e652.css",
-    "static/js/main.b2e9c919.js"
+    "static/js/main.02760625.js"
   ]
 }
