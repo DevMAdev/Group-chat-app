@@ -8,6 +8,7 @@ import send from './assets/send.svg'
 import { getAuth, signOut } from 'firebase/auth';
 import { getDatabase, onChildAdded, push, ref, set } from "firebase/database";
 import app from './firebase';
+import moment from 'moment/moment';
 
 function Chat() {
   const [userName, setUserName] = useState("")
@@ -26,21 +27,13 @@ function Chat() {
     setUserName(user)
    const chatAppend =  onChildAdded(chatListRef, (data) => {
     setChats(chats => [...chats, data.val()]);
-    // setTimeout(()=>{
-    //   autoScroll()
-    // },1000)
-   })
+     })
 
    return () => {
     chatAppend();
   }
   }, [])
 
-  function autoScroll() {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  };
   
   function handleSignout() {
     const auth = getAuth(app);
@@ -57,14 +50,13 @@ function Chat() {
       set(newChatRef, {
       name: userName?.displayName,
       msg: inputRef.current.value,
+      time:moment().format('LT'),
+      date: new Date().toDateString().slice(4)
     })
     }
-
     inputRef.current.value = ""
-    autoScroll()
   }
-  
-  return (
+    return (
     <div className='chat-page'>
       <Navbar bg="light" variant="light" className='header'>
         <Container>
@@ -93,10 +85,20 @@ function Chat() {
               return (
                 <div className={`chat-cont ${chat.name === userName?.displayName ? 'me' : ''}`} key={index}>
                   <div className="single-chat">
-                    <p>
-                      <strong>{chat.name} :</strong>
-                      &nbsp;<span>{chat.msg}</span>
-                    </p>
+                    <table>
+                      <tr>
+                      <td rowSpan={3}><img src={chat.name === userName?.displayName ? userName?.photoURL || userAvtar : userAvtar} alt="img" height={40} style={{ borderRadius: '50%', textAlign:"center" }} />&nbsp;&nbsp;&nbsp;</td>
+                     <td style={{fontSize:'1rem', color:"", fontWeight:"500"}}>{chat.name} </td>
+                      </tr>
+                      <tr>
+                      {/* <td></td> */}
+                        <td style={{fontSize:'0.8rem',}}>{chat.msg.toUpperCase()}</td>
+                      </tr>
+                      <tr>
+                        {/* <td></td> */}
+                        <td  style={{fontSize:'0.7rem', color:"gray"}}>{chat.date} &nbsp; &nbsp; {chat.time}</td>
+                      </tr>
+                    </table>
                   </div>
                 </div>
 
